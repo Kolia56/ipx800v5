@@ -1,21 +1,11 @@
 """Config flow to configure the ipx800v5 integration."""
 
-from itertools import groupby
 import logging
+from itertools import groupby
 from typing import Any
 
-from aiohttp import ClientSession
-from pypx800v5 import (
-    API_CONFIG_NAME,
-    EXT_X8R,
-    IPX,
-    IPX800,
-    IPX800CannotConnectError,
-    IPX800InvalidAuthError,
-)
 import voluptuous as vol
-from voluptuous.util import Upper
-
+from aiohttp import ClientSession
 from homeassistant import config_entries
 from homeassistant.config_entries import ConfigEntry, ConfigFlowResult, OptionsFlow
 from homeassistant.const import (
@@ -28,6 +18,15 @@ from homeassistant.const import (
 )
 from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from pypx800v5 import (
+    API_CONFIG_NAME,
+    EXT_X8R,
+    IPX,
+    IPX800,
+    IPX800CannotConnectError,
+    IPX800InvalidAuthError,
+)
+from voluptuous.util import Upper
 
 from .const import (
     CONF_COMPONENT,

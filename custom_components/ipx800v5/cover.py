@@ -3,8 +3,6 @@
 import logging
 from typing import Any
 
-from pypx800v5 import EXT_X4VR, IPX800, X4VR
-
 from homeassistant.components.cover import (
     ATTR_POSITION,
     CoverDeviceClass,
@@ -15,6 +13,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from pypx800v5 import EXT_X4VR, IPX800, X4VR
 
 from .const import CONF_DEVICES, CONF_EXT_TYPE, CONTROLLER, COORDINATOR, DOMAIN
 from .entity import IpxEntity

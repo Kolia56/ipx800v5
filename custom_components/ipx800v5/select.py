@@ -1,16 +1,15 @@
 """Support for IPX800 V5 select."""
 
-from collections.abc import Mapping
 import logging
+from collections.abc import Mapping
 from typing import Any
-
-from pypx800v5 import EXT_XDISPLAY, IPX800, XDisplay
 
 from homeassistant.components.select import SelectEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from pypx800v5 import EXT_XDISPLAY, IPX800, XDisplay
 
 from .const import CONF_DEVICES, CONF_EXT_TYPE, CONTROLLER, COORDINATOR, DOMAIN
 from .entity import IpxEntity

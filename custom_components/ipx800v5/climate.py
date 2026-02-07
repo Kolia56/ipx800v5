@@ -3,6 +3,21 @@
 import logging
 from typing import Any
 
+from homeassistant.components.climate import ClimateEntity
+from homeassistant.components.climate.const import (
+    PRESET_AWAY,
+    PRESET_COMFORT,
+    PRESET_ECO,
+    PRESET_NONE,
+    ClimateEntityFeature,
+    HVACAction,
+    HVACMode,
+)
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pypx800v5 import (
     EXT_X4FP,
     EXT_X8R,
@@ -16,23 +31,18 @@ from pypx800v5 import (
     X4FPMode,
 )
 
-from homeassistant.components.climate import (
-    PRESET_AWAY,
-    PRESET_COMFORT,
-    PRESET_ECO,
-    PRESET_NONE,
-    ClimateEntity,
-    ClimateEntityFeature,
-    HVACAction,
-    HVACMode,
+from .const import (
+    CONF_DEVICES,
+    CONF_EXT_TYPE,
+    CONF_MAX_TEMP,
+    CONF_TARGET_TEMP_STEP,
+    CONTROLLER,
+    COORDINATOR,
+    DEFAULT_MAX_TEMP,
+    DEFAULT_MIN_TEMP,
+    DEFAULT_TARGET_TEMP_STEP,
+    DOMAIN,
 )
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-
-from .const import CONF_DEVICES, CONF_EXT_TYPE, CONTROLLER, COORDINATOR, DOMAIN
 from .entity import IpxEntity
 
 _LOGGER = logging.getLogger(__name__)
@@ -267,7 +277,6 @@ class RelayClimate(IpxEntity, ClimateEntity):
 class ThermostatClimate(IpxEntity, ClimateEntity):
     """Representation of a IPX Thermostat."""
 
-    _attr_target_temperature_step = 0.1
     _attr_supported_features = (
         ClimateEntityFeature.PRESET_MODE
         | ClimateEntityFeature.TARGET_TEMPERATURE
@@ -288,6 +297,35 @@ class ThermostatClimate(IpxEntity, ClimateEntity):
         """Initialize the IPX800 thermostat."""
         super().__init__(device_config, ipx, coordinator)
         self.control = Thermostat(ipx, self._ext_number)
+        self._attr_min_temp = self._get_nofrost_temp()
+        self._attr_max_temp = device_config.get(CONF_MAX_TEMP, DEFAULT_MAX_TEMP)
+        self._attr_target_temperature_step = device_config.get(
+            CONF_TARGET_TEMP_STEP, DEFAULT_TARGET_TEMP_STEP
+        )
+        _LOGGER.debug(
+            "Thermostat %s initialized - min_temp=NoFrost (dynamic), max_temp=%s, step=%s",
+            self._attr_name,
+            self._attr_max_temp,
+            self._attr_target_temperature_step,
+        )        
+
+    def _get_nofrost_temp(self) -> float:
+        """Get NoFrost temperature from IPX800 config."""
+        try:
+            nofrost = float(self.control.init_config["setPointNoFrost"])
+            _LOGGER.debug(
+                "Thermostat %s - Read NoFrost from IPX800: %s°C",
+                self._attr_name,
+                nofrost,
+            )
+            return nofrost
+        except (AttributeError, KeyError, ValueError, TypeError) as err:
+            _LOGGER.warning(
+                "Could not read NoFrost from IPX800 for %s: %s",
+                self._attr_name,
+                err,
+            )
+        return DEFAULT_MIN_TEMP
 
     @property
     def current_temperature(self) -> float:

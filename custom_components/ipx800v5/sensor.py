@@ -3,18 +3,6 @@
 import logging
 
 import pypx800v5
-from pypx800v5 import (
-    EXT_XDISPLAY,
-    EXT_XTHL,
-    IPX,
-    IPX800,
-    OBJECT_ACCESS_CONTROL,
-    TYPE_ANA,
-    XTHL,
-    IPX800AnalogInput,
-    XDisplay,
-)
-
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -33,6 +21,17 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from pypx800v5 import (
+    EXT_XDISPLAY,
+    EXT_XTHL,
+    IPX,
+    IPX800,
+    OBJECT_ACCESS_CONTROL,
+    TYPE_ANA,
+    XTHL,
+    IPX800AnalogInput,
+    XDisplay,
+)
 
 from .const import CONF_DEVICES, CONF_EXT_TYPE, CONTROLLER, COORDINATOR, DOMAIN
 from .entity import IpxEntity

@@ -1,8 +1,5 @@
 """Represent the IPX800V5 base entity."""
 
-from pypx800v5 import EXTENSIONS, IPX, IPX800
-from voluptuous.util import Upper
-
 from homeassistant.const import (
     CONF_DEVICE_CLASS,
     CONF_ENTITY_CATEGORY,
@@ -17,6 +14,8 @@ from homeassistant.helpers.update_coordinator import (
     DataUpdateCoordinator,
 )
 from homeassistant.util import slugify
+from pypx800v5 import EXTENSIONS, IPX, IPX800
+from voluptuous.util import Upper
 
 from .const import (
     CONF_COMPONENT,
