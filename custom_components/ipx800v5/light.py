@@ -1,22 +1,8 @@
 """Support for IPX800 V5 lights."""
 
-from asyncio import gather as async_gather
 import logging
+from asyncio import gather as async_gather
 from typing import Any
-
-from pypx800v5 import (
-    EXT_X010V,
-    EXT_X8R,
-    EXT_XDIMMER,
-    EXT_XPWM,
-    IPX,
-    IPX800,
-    X010V,
-    X8R,
-    XPWM,
-    IPX800Relay,
-    XDimmer,
-)
 
 from homeassistant.components.light import (
     ATTR_BRIGHTNESS,
@@ -32,6 +18,19 @@ from homeassistant.const import CONF_TYPE
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from pypx800v5 import (
+    EXT_X010V,
+    EXT_X8R,
+    EXT_XDIMMER,
+    EXT_XPWM,
+    IPX,
+    IPX800,
+    X010V,
+    X8R,
+    XPWM,
+    IPX800Relay,
+    XDimmer,
+)
 
 from .const import (
     CONF_DEFAULT_BRIGHTNESS,

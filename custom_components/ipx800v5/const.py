@@ -25,6 +25,12 @@ CONF_EXT_NAME = "ext_name"
 CONF_EXT_NUMBER = "ext_number"
 CONF_IO_NUMBER = "io_number"
 CONF_IO_NUMBERS = "io_numbers"
+CONF_MAX_TEMP = "max_temp"
+CONF_TARGET_TEMP_STEP = "target_temp_step"
+
+DEFAULT_MIN_TEMP = 7
+DEFAULT_MAX_TEMP = 22
+DEFAULT_TARGET_TEMP_STEP = 0.5
 
 TYPE_IPX_OPENCOLL = "opencoll"
 TYPE_IPX_OPTO = "opto"

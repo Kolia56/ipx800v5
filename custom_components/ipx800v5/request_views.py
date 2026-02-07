@@ -1,11 +1,10 @@
 """IPX800V5 request views to handle push information."""
 
+import logging
 from base64 import b64decode
 from http import HTTPStatus
-import logging
 
 from aiohttp import web
-
 from homeassistant.components.http import HomeAssistantView
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.util import slugify

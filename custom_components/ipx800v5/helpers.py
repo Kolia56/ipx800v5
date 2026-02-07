@@ -1,8 +1,15 @@
 """Tools to manage IPX800V5 tools."""
 
-from itertools import groupby
 import logging
+from itertools import groupby
 
+from homeassistant.const import (
+    CONF_ENTITY_CATEGORY,
+    CONF_ID,
+    CONF_NAME,
+    CONF_TYPE,
+    EntityCategory,
+)
 from pypx800v5 import (
     API_CONFIG_NAME,
     API_CONFIG_TYPE,
@@ -24,14 +31,6 @@ from pypx800v5 import (
     OBJECT_THERMOSTAT,
     TYPE_ANA,
     TYPE_IO,
-)
-
-from homeassistant.const import (
-    CONF_ENTITY_CATEGORY,
-    CONF_ID,
-    CONF_NAME,
-    CONF_TYPE,
-    EntityCategory,
 )
 
 from .const import (
