@@ -49,28 +49,13 @@ class IpxRequestView(HomeAssistantView):
         self.host = host
         self.password = password
         self.url = "/api/%s/{entity_id}/{state}" % slugify(ipx_name)
-        self.extra_urls = [
-            "/api/ipx800v5/{entity_id}/{state}"
-        ]  # retrocompat to remove in next major versions
         _LOGGER.info("Dedicated push url for '%s': '%s'", ipx_name, self.url)
-        for extra_url in self.extra_urls:
-            _LOGGER.info(
-                "/!\\ Removed in next major version: legacy push refresh url for '%s': '%s'",
-                ipx_name,
-                extra_url,
-            )
         super().__init__()
 
     async def get(self, request, entity_id, state):
         """Respond to requests from the device."""
         if not check_api_auth(request, self.host, self.password):
             return web.Response(status=HTTPStatus.UNAUTHORIZED)
-        # To be removed in next major version
-        if "/api/ipx800v5/" in str(request.url) and "/api/ipx800v5/" not in self.url:
-            _LOGGER.warning(
-                "Legacy URL %s called, please update your IPX800 configuration",
-                str(request.url),
-            )
         _LOGGER.debug("State update pushed from IPX")
         hass = request.app["hass"]
         old_state = hass.states.get(entity_id)
@@ -93,29 +78,13 @@ class IpxRequestDataView(HomeAssistantView):
         self.host = host
         self.password = password
         self.url = "/api/%s_data/{data}" % slugify(ipx_name)
-        self.extra_urls = ["/api/ipx800v5_data/{data}"]  # retrocompat
         _LOGGER.info("Dedicated push data url for '%s': '%s'", ipx_name, self.url)
-        for extra_url in self.extra_urls:
-            _LOGGER.info(
-                "/!\\ Removed in next major version: legacy push refresh url for '%s': '%s'",
-                ipx_name,
-                extra_url,
-            )
         super().__init__()
 
     async def get(self, request, data):
         """Respond to requests from the device."""
         if not check_api_auth(request, self.host, self.password):
             return web.Response(status=HTTPStatus.UNAUTHORIZED)
-        # To be removed in next major version
-        if (
-            "/api/ipx800v5_data/" in str(request.url)
-            and "/api/ipx800v5_data/" not in self.url
-        ):
-            _LOGGER.warning(
-                "Legacy URL %s called, please update your IPX800 configuration",
-                str(request.url),
-            )
         _LOGGER.debug("State update pushed from IPX")
         hass = request.app["hass"]
         entities_data = data.split("&")
@@ -151,32 +120,13 @@ class IpxRequestRefreshView(HomeAssistantView):
         self.password = password
         self.coordinator = coordinator
         self.url = f"/api/{slugify(ipx_name)}_refresh"
-        self.extra_urls = [
-            "/api/ipx800v5_refresh",  # retrocompat
-            "/api/ipx800v5_refresh/{data}",  # retrocompat
-        ]
         _LOGGER.info("Dedicated push refresh url for '%s': '%s'", ipx_name, self.url)
-        for extra_url in self.extra_urls:
-            _LOGGER.info(
-                "/!\\ Removed in next major version: legacy push refresh url for '%s': '%s'",
-                ipx_name,
-                extra_url,
-            )
         super().__init__()
 
     async def get(self, request):
         """Respond to requests from the device."""
         if not check_api_auth(request, self.host, self.password):
             return web.Response(status=HTTPStatus.UNAUTHORIZED)
-        # To be removed in next major version
-        if (
-            "/api/ipx800v5_refresh" in str(request.url)
-            and "/api/ipx800v5_refresh" not in self.url
-        ):
-            _LOGGER.warning(
-                "Legacy URL %s called, please update your IPX800 configuration",
-                str(request.url),
-            )
         _LOGGER.debug("Update asked from IPX PUSH")
         await self.coordinator.async_request_refresh()
         return web.Response(status=HTTPStatus.OK, text="OK")
