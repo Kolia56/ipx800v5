@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/Aohzan/ipx800v5/compare/1.9.5...2.0.0) (2026-05-04)
+
+### ⚠ BREAKING CHANGES
+
+* check logs to know which URL use
+
+### Features
+
+* add extra attributes to easily identify where is physically located the entity ([9ddc0b6](https://github.com/Aohzan/ipx800v5/commit/9ddc0b6e0c0666b91abf2228a2a2504d44e40345))
+* remove deprecated push api url ([a14d6d7](https://github.com/Aohzan/ipx800v5/commit/a14d6d76df0be00087ca781ae510ee6cd832d5f9))
+
 ## [1.9.5](https://github.com/Aohzan/ipx800v5/compare/1.9.4...1.9.5) (2026-01-30)
 
 ### Bug Fixes
