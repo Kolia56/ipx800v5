@@ -75,6 +75,11 @@ class IpxEntity(CoordinatorEntity):
                 slugify(self._attr_name),
             ]
         )
+        self._attr_extra_state_attributes = {
+            "extension_type": self._ext_type,
+            "extension_number": self._ext_number,
+            "io": self._io_number or self._io_numbers or self._io_id,
+        }
 
         configuration_url = f"http://{self.ipx.host}:{self.ipx.port}/"
 
