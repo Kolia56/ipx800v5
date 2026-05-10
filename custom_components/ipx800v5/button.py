@@ -39,4 +39,4 @@ class RebootButton(IpxEntity, ButtonEntity):
 
     async def async_press(self) -> None:
         """Handle the button press."""
-        self.ipx.reboot()
+        await self.ipx.reboot()
