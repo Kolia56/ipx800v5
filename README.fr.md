@@ -205,9 +205,20 @@ ipx800v5:
 
 ## PUSH
 
+### URLs
+
+Les URL sont générées à partir du nom de l'IPX défini de votre côté (afin d'avoir une URL unique en cas de possession de plusieurs IPX)
+Elles vous sont communiquées dans les logs au démarrage, exemple pour "IPX800 V5" :
+
+```
+Dedicated push url for 'IPX800 V5': '/api/ipx800_v5/{entity_id}/{state}'
+Dedicated push data url for 'IPX800 V5': '/api/ipx800_v5_data/{data}'
+Dedicated push refresh url for 'IPX800 V5': '/api/ipx800_v5_refresh'
+```
+
 ### Demande d'actualisation des états
 
-En faisant un appel PUSH depuis l'IPX sur l'URL `/api/ipx800v5_refresh/on`, vous demandez à Home-Assistant de rafraichir l'état de toutes les entités.
+En faisant un appel PUSH depuis l'IPX sur l'URL `/api/ipx800_v5_refresh/on`, vous demandez à Home-Assistant de rafraichir l'état de toutes les entités.
 
 ### Poussez l'état d'une entité
 
@@ -221,8 +232,8 @@ Ensuite, créer un PUSH dans les liens > Objets > Push, avec les éléments suiv
 - `Port`: Port de votre Home-Assistant (par défaut `8123`)
 - `Nom utilisateur`: `ipx800`
 - `Mot de passe`: Votre mot de passe
-- `Requête ON` - `URI`: personnalisez avec votre entité : `/api/ipx800v5/votre_entite/on` (exemple `/api/ipx800v5/binary_sensor.detecteur_garage/on`)
-- `Requête ON` - `URI`: La même chose avec `off` à la place de `on` : `/api/ipx800v5/votre_entite/off`
+- `Requête ON` - `URI`: personnalisez avec votre entité : `/api/ipx800_v5/votre_entite/on` (exemple `/api/ipx800_v5/binary_sensor.detecteur_garage/on`)
+- `Requête ON` - `URI`: La même chose avec `off` à la place de `on` : `/api/ipx800_v5/votre_entite/off`
 
 Exemple:
 ![PUSH configuration example](push_config.jpg)
@@ -232,8 +243,4 @@ Ensuite créer une scène pour activer votre PUSH avec un ON/OFF selon votre sou
 
 ### Poussez l'état de pusieurs entités
 
-Même chose que précédemment, en séparant par des `&`, exemple : `/api/ipx800v5/votre_entite=on&votre_autre_entite=off`.
-
-### Cas de plusieurs IPX800
-
-Si vous avez plusieurs IPX800, il faut ajouter le nom de l'ipx (celui choisi avec `name`) dans l'url, exemple: `/api/ipx800v5a/binary_sensor.detecteur_garage/on`.
+Même chose que précédemment, en séparant par des `&`, exemple : `/api/ipx800_v5/votre_entite=on&votre_autre_entite=off`.
