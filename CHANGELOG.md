@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.1](https://github.com/Aohzan/ipx800v5/compare/2.0.0...2.0.1) (2026-05-10)
+
+### Bug Fixes
+
+* warning when reboot ipx ([aa8f230](https://github.com/Aohzan/ipx800v5/commit/aa8f2306148490b27756be7e4a3716f8e6fbdc5d))
+
 ## [2.0.0](https://github.com/Aohzan/ipx800v5/compare/1.9.5...2.0.0) (2026-05-04)
 
 ### ⚠ BREAKING CHANGES
