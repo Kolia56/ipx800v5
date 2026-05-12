@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.1.0](https://github.com/Aohzan/ipx800v5/compare/2.0.1...2.1.0) (2026-05-12)
+
+### Features
+
+* add configurable temperature parameters for the thermostat object ([67dd380](https://github.com/Aohzan/ipx800v5/commit/67dd3809928b1a87956808a8fdf7b531d4ee37c0))
+
 ## [2.0.1](https://github.com/Aohzan/ipx800v5/compare/2.0.0...2.0.1) (2026-05-10)
 
 ### Bug Fixes
